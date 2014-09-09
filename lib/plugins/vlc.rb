@@ -74,12 +74,7 @@ module Plugins
     listen_to :join
     def listen(m)
       if @vlc.playing
-        if m.raw.match(/destevez/)
-          @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=onMJBIXjW4Y')
-        else
-          @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
-        end
-      else
+        @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
       end
     end
 
@@ -93,6 +88,13 @@ module Plugins
     def pause(m)
       @vlc.pause
       m.reply "pausa"
+    end
+
+    listen_to :online,  method: :on_online
+    def on_online(m, user)
+      if user.nick ~= /destevez/i && @vlc.playing
+          @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=onMJBIXjW4Y')
+      end
     end
 
     def volume(m, query)
