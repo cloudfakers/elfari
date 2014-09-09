@@ -74,7 +74,11 @@ module Plugins
     listen_to :join
     def listen(m)
       if @vlc.playing
-        @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
+        if m.raw.match(/destevez/)
+          @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=onMJBIXjW4Y')
+        else
+          @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
+        end
       else
       end
     end
