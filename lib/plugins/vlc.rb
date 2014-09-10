@@ -69,6 +69,7 @@ module Plugins
       @vlc.add_stream   YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
       @vlc.playing = true
 
+      @vol = 250
     end
 
     listen_to :join
@@ -104,11 +105,12 @@ module Plugins
       if @streaming
         n = ([query.to_i, 512].min / 512.0) * 100
         `amixer -D pulse sset Master #{n}%`
+        @vol = n
       else
         @vlc.volume=query.to_i
       end
     end
-    
+
     def increase_volume(m)
       vol = @vlc.volume
       if vol.nil? or vol == ""
@@ -117,7 +119,7 @@ module Plugins
       vol = vol.to_i + 10
       volume(m, vol)
     end
-    
+
     def decrease_volume(m)
       vol = @vlc.volume
       if vol.nil? or vol == ""
@@ -126,7 +128,7 @@ module Plugins
       vol = vol.to_i - 10
       @vlc.volume(m, vol)
     end
-    
+
     def next_song(m)
       @vlc.next
     end
@@ -137,8 +139,8 @@ module Plugins
 
     def add_song_apm(m, query)
       if query.match(/^http/)
-       `youtube-dl --verbose -o '#{@apm_folder}/%(title)s-%(id)s.%(ext)s' #{query}`.strip
-       m.reply "Ya es nuestro \"#{YoutubeDL::Downloader.video_title(query)}\"!"
+        `youtube-dl --verbose -o '#{@apm_folder}/%(title)s-%(id)s.%(ext)s' #{query}`.strip
+        m.reply "Ya es nuestro \"#{YoutubeDL::Downloader.video_title(query)}\"!"
       else
         m.reply "eso no es una uri"
       end
@@ -164,7 +166,7 @@ module Plugins
     end
 
     def play_known(m, query)
-        play_from_file(m, query, @db_song, false)
+      play_from_file(m, query, @db_song, false)
     end
 
     def play_apm(m, query)
@@ -177,7 +179,7 @@ module Plugins
         m.reply "No tengo #{query}"
       end
     end
-    
+
     def play_from_file(m, query, filename, force)
       db = File.readlines(filename)
       found = false
@@ -256,11 +258,15 @@ module Plugins
     end
 
     def get_volume(m)
-      vol = @vlc.volume
-      if vol.nil? or vol == ""
-        m.reply "Ahora no esta sonando nada!"
+      if @streaming
+        vol = @vlc.volume
+        if vol.nil? or vol == ""
+          m.reply "Ahora no esta sonando nada!"
+        else
+          m.reply "el volume: #{vol.to_i}"
+        end
       else
-        m.reply "el volume: #{vol.to_i}"
+        m.reply @vol
       end
     end
 
