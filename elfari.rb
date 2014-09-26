@@ -44,8 +44,8 @@ end
 config = ElFari::Config.config
 
 greetings = {
-    "destevez" => "http://www.youtube.com/watch?v=onMJBIXjW4Y"
-    "scastro" => "http://www.youtube.com/watch?v=wqxvKdKX6Fk"
+    "destevez" => "http://www.youtube.com/watch?v=onMJBIXjW4Y",
+    "scastro" => "http://www.youtube.com/watch?v=wqxvKdKX6Fk",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
