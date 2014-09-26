@@ -43,6 +43,12 @@ end
 
 config = ElFari::Config.config
 
+greetings = {
+    "destevez" => "http://www.youtube.com/watch?v=onMJBIXjW4Y"
+    "scastro" => "http://www.youtube.com/watch?v=wqxvKdKX6Fk"
+    "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
+}
+
 bot = Cinch::Bot.new do
   configure do |c|
     c.server = config[:server]
@@ -65,7 +71,8 @@ bot = Cinch::Bot.new do
                         :apm_folder => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:apm_folder]}",
                         :internet_song => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:internet_song]}",
                         :streaming_port => config[:vlc][:streaming_port],
-                        :streaming => config[:vlc][:streaming]},
+                        :streaming => config[:vlc][:streaming],
+                        :greetings => greetings},
 	#Plugins::Mpd => {:database => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:database]}"},
          Plugins::Tuiter => {:lang => config[:twitter][:lang]}
     }

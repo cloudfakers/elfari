@@ -42,6 +42,7 @@ module Plugins
       @db_song = config[:database]
       @db_apm = config[:apm]
       @apm_folder = config[:apm_folder]
+      @greetings = config[:greetings]
 
       @streaming = config[:streaming] || false
       config[:host] ||= 'localhost'
@@ -74,18 +75,14 @@ module Plugins
 
     listen_to :join
     def listen(m)
+      greeting = @greetings[m.user.nick]
+      if greeting.nil?
+          greeting = @greetings["default"]
+      end
       if @vlc.playing
-        if m.user.nick =~ /destevez/i
-          @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=onMJBIXjW4Y')
-        else
-          @vlc.add_stream YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
-        end
+        @vlc.add_stream YoutubeDL::Downloader.url_flv(greeting)
       else
-        if m.user.nick =~ /destevez/i
-          @vlc.stream= YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=onMJBIXjW4Y')
-        else
-          @vlc.stream= YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
-        end
+        @vlc.stream= YoutubeDL::Downloader.url_flv(greeting)
       end
     end
 
