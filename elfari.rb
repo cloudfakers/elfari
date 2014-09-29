@@ -57,7 +57,7 @@ bot = Cinch::Bot.new do
     c.plugins.plugins = [
       #Plugins::Mpd,Plugins::Player
      Plugins::VLC,
-      Plugins::Tuiter,
+    #  Plugins::Tuiter,
       Plugins::Say]
 
     c.plugins.options= {
@@ -74,7 +74,7 @@ bot = Cinch::Bot.new do
                         :streaming => config[:vlc][:streaming],
                         :greetings => greetings},
 	#Plugins::Mpd => {:database => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:database]}"},
-         Plugins::Tuiter => {:lang => config[:twitter][:lang]}
+        #Plugins::Tuiter => {:lang => config[:twitter][:lang]}
     }
     c.timeouts.connect = config[:timeout]
     c.verbose = true
@@ -85,6 +85,7 @@ EM.defer {
   bot.start
 }
 
+=begin
 TweetStream.configure do |c|
   c.consumer_key = ENV['GENARDO_TWITTER_CONSUMER_KEY']
   c.consumer_secret = ENV['GENARDO_TWITTER_CONSUMER_SECRET']
@@ -110,4 +111,4 @@ TweetStream::Client.new.on_error do |error|
   end.track(screen_names.split(',')) do |status|
   @channel.msg "Mencionan en twitter @#{status.user.screen_name}: #{status.text}"
 end
-
+=end
