@@ -81,9 +81,9 @@ bot = Cinch::Bot.new do
   end
 end
 
-EM.defer {
+#EM.defer {
   bot.start
-}
+#}
 
 =begin
 TweetStream.configure do |c|
@@ -93,7 +93,6 @@ TweetStream.configure do |c|
   c.oauth_token_secret = ENV['GENARDO_TWITTER_OAUTH_TOKEN_SECRET']
   c.auth_method = :oauth
 end
-=end
 
 until @channel do
   bot.channels.each do |c|
@@ -104,7 +103,6 @@ until @channel do
   sleep 1
 end
 
-=begin
 screen_names = config[:twitter][:screen_names] || ""
 TweetStream::Client.new.on_error do |error|
   @channel.msg "No pueeeeedo: #{error}"
