@@ -48,6 +48,7 @@ greetings = {
     "scastro" => "http://www.youtube.com/watch?v=wqxvKdKX6Fk",
     "DanFaizer" => "http://www.youtube.com/watch?v=Gl_22W0GilI",
     "eruiz" => "http://www.youtube.com/watch?v=HLAqOBAV-jk",
+    "spena" => "http://www.youtube.com/watch?v=nPrYcD79Qm4",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
