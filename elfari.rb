@@ -44,7 +44,7 @@ end
 config = ElFari::Config.config
 
 greetings = {
-    "nacx" => "https://www.youtube.com/watch?v=XzrkufnSA10",
+    "nacx" => "http://www.youtube.com/watch?v=-stTK_ScXlQ",
     "destevez" => "http://www.youtube.com/watch?v=onMJBIXjW4Y",
     "scastro" => "http://www.youtube.com/watch?v=wqxvKdKX6Fk",
     "DanFaizer" => "http://www.youtube.com/watch?v=Gl_22W0GilI",
