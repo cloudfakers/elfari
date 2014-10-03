@@ -22,6 +22,7 @@ module Plugins
     match /que\stiene/, method: :list, :use_prefix => false
     match /^list\s?apm/, method: :list_apm, :use_prefix => false
     match /ponme\s*er\s*(.*)/, method: :play_known, :use_prefix => false
+    match /saluda\s*a?\s*(.*)/, method: :greet, :use_prefix => false
     match /^apm\s*(.*)/, method: :play_apm, :use_prefix => false
     match /aluego(.*)/, method: :execute_aluego, :use_prefix => false
     match /trame\s*(.*)/, method: :trame, :use_prefix => false
@@ -75,7 +76,15 @@ module Plugins
 
     listen_to :join
     def listen(m)
-      greeting = @greetings[m.user.nick]
+      _greet(m.user.nick)
+    end
+
+    def greet(m, query)
+        _greet(query)
+    end
+
+    def _greet(who)
+      greeting = @greetings[who]
       if greeting.nil?
           greeting = @greetings["default"]
       end
