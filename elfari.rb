@@ -50,7 +50,7 @@ greetings = {
     "DanFaizer" => "http://www.youtube.com/watch?v=Gl_22W0GilI",
     "eruiz" => "http://www.youtube.com/watch?v=HLAqOBAV-jk",
     "spena" => "http://www.youtube.com/watch?v=nPrYcD79Qm4",
-    "lmonte" => "http://www.youtube.com/watch?v=sdfnnndpRw8",
+    "lmonte" => "http://www.youtube.com/watch?v=0t7JowCZHQE",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
