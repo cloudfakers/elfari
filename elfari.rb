@@ -48,7 +48,7 @@ greetings = {
     "destevez" => "http://www.youtube.com/watch?v=onMJBIXjW4Y",
     "scastro" => "http://www.youtube.com/watch?v=wqxvKdKX6Fk",
     "DanFaizer" => "http://www.youtube.com/watch?v=Gl_22W0GilI",
-    "eruiz" => "http://www.youtube.com/watch?v=HLAqOBAV-jk",
+    "eruiz" => "http://www.youtube.com/watch?v=jvZVMMTFut0",
     "spena" => "http://www.youtube.com/watch?v=nPrYcD79Qm4",
     "lmonte" => "http://www.youtube.com/watch?v=0t7JowCZHQE",
     "chirauki" => "http://www.youtube.com/watch?v=0wXYx-cUGWg",
