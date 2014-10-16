@@ -52,6 +52,7 @@ greetings = {
     "spena" => "http://www.youtube.com/watch?v=nPrYcD79Qm4",
     "lmonte" => "http://www.youtube.com/watch?v=0t7JowCZHQE",
     "chirauki" => "http://www.youtube.com/watch?v=0wXYx-cUGWg",
+    "apuig" => "http://www.youtube.com/watch?v=ZeKop5CqIIU",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
