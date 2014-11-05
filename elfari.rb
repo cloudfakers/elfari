@@ -53,7 +53,8 @@ greetings = {
     "lmonte" => "http://www.youtube.com/watch?v=0t7JowCZHQE",
     "chirauki" => "http://www.youtube.com/watch?v=0wXYx-cUGWg",
     "apuig" => "http://www.youtube.com/watch?v=ZeKop5CqIIU",
-    "maryjane" => "https://www.youtube.com/watch?v=r5RlYLFN4O4",
+    "maryjane" => "http://www.youtube.com/watch?v=hOj3LoWwjMs",
+    "mjsmyth" => "http://www.youtube.com/watch?v=hOj3LoWwjMs",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
