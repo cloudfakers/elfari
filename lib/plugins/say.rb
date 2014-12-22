@@ -17,7 +17,8 @@ module Plugins
         @cmd_en = "say -v Vicki '"
         @cmd_es = "say -v Monica '"
       end
-    end 
+    end
+
     match "cuenta un chiste", method: :joke, :use_prefix => false
     match /dimelo\s*(.*)/, method: :say, :use_prefix => false
     match /say\s*(.*)/, method: :english, :use_prefix => false
@@ -83,10 +84,23 @@ module Plugins
       if @numbers.size() > 0
         num = @numbers.delete_at(Random.rand(@numbers.size()))
         @chosen << num
+
         txt = "El #{num}!"
         if num > 9
           txt += " #{num/10}, #{num % 10}!"
         end
+
+        begin
+            http = Net::HTTP.new('rimamelo.herokuapp.com', 80)
+            request = Net::HTTP::Get.new("/web/api?model.rhyme=#{num}")
+            response = http.request(request)
+            if response.code == 200
+                txt += " #{response.body()}"
+            end
+        rescue
+            # Ignore the rhyme if it cannot be retrieved
+        end
+
         cmd = "#{@cmd_es}#{txt}'"
       else
         cmd = "#{@cmd_es}Bingo terminado!'"
