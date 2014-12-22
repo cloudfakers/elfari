@@ -100,7 +100,8 @@ module Plugins
             request = Net::HTTP::Get.new("/web/api?model.rhyme=#{num}")
             response = http.request(request)
             if response.code == '200'
-              txt += " #{response.body()}"
+              rhyme = response.body()
+              txt += " #{rhyme.force_encoding('iso-8859-1')}"
             end
           rescue
             # Ignore the rhyme if it cannot be retrieved
