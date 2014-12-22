@@ -26,6 +26,7 @@ module Plugins
     match /^linea$/, method: :bingo_line, :use_prefix => false
     match /^bingo$/, method: :bingo_bingo, :use_prefix => false
     match /^cantamelo$/, method: :bingo_next, :use_prefix => false
+    match /^anumeros$/, method: :bingo_chosen, :use_prefix => false
 
     def say(m, text)
       cmd = "#{@cmd_es}#{text}'"
@@ -59,6 +60,7 @@ module Plugins
 
     def bingo_start(m)
       @numbers =* (1..90)
+      @chosen = []
       cmd = "#{@cmd_es}Vamos chavalotes, que empieda el Abi Bingo!'"
       %x[ #{cmd} ]
     end
@@ -73,9 +75,14 @@ module Plugins
       %x[ #{cmd} ]
     end
 
+    def bingo_chosen(m)
+      m.reply "Estos son los números que han salido, tontaco!\n#{@chosen.to_s}"
+    end
+
     def bingo_next(m)
       if @numbers.size() > 0
         num = @numbers.delete_at(Random.rand(@numbers.size()))
+        @chosen << num
         txt = "El #{num}!"
         if num > 9
           txt += " #{num/10}, #{num % 10}!"
