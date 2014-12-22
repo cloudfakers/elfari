@@ -76,7 +76,7 @@ module Plugins
     end
 
     def bingo_chosen(m)
-      m.reply "Estos son los números que han salido, tontaco!\n#{@chosen.to_s}"
+      m.reply "Estos son los que ya han salido, tontaco!\n#{@chosen.to_s}"
     end
 
     def bingo_next(m)
