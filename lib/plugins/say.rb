@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'cinch'
+require 'net/http'
 
 module Plugins
   class Say
@@ -94,7 +95,7 @@ module Plugins
             http = Net::HTTP.new('rimamelo.herokuapp.com', 80)
             request = Net::HTTP::Get.new("/web/api?model.rhyme=#{num}")
             response = http.request(request)
-            if response.code == 200
+            if response.code == '200'
                 txt += " #{response.body()}"
             end
         rescue
