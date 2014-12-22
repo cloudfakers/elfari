@@ -62,6 +62,7 @@ module Plugins
 
     def bingo_start(m)
       @numbers =* (1..90)
+      @bingo_master = m.user.nick
       @chosen = []
       cmd = "#{@cmd_es}Vamos chavalotes, que empieda el Abi Bingo!'"
       %x[ #{cmd} ]
@@ -78,35 +79,40 @@ module Plugins
     end
 
     def bingo_chosen(m)
-      m.reply "Estos son los que ya han salido, tontaco!\n#{@chosen.to_s}"
+      if m.user.nick == @bingo_master
+        m.reply "Estos son los que ya han salido, tontaco!\n#{@chosen.sorted().to_s}"
+      end
     end
 
     def bingo_next(m)
-      if @numbers.size() > 0
-        num = @numbers.delete_at(Random.rand(@numbers.size()))
-        @chosen << num
+      if m.user.nick == @bingo_master
+        if @numbers.size() > 0
+          num = @numbers.delete_at(Random.rand(@numbers.size()))
+          @chosen << num
 
-        txt = "El #{num}!"
-        if num > 9
-          txt += " #{num/10}, #{num % 10}!"
-        end
+          txt = "El #{num}!"
+          if num > 9
+            txt += " #{num/10}, #{num % 10}!"
+          end
 
-        begin
+          begin
             http = Net::HTTP.new('rimamelo.herokuapp.com', 80)
             request = Net::HTTP::Get.new("/web/api?model.rhyme=#{num}")
             response = http.request(request)
             if response.code == '200'
-                txt += " #{response.body()}"
+              txt += " #{response.body()}"
             end
-        rescue
+          rescue
             # Ignore the rhyme if it cannot be retrieved
-        end
+          end
 
-        cmd = "#{@cmd_es}#{txt}'"
-      else
-        cmd = "#{@cmd_es}Bingo terminado!'"
+          cmd = "#{@cmd_es}#{txt}'"
+          m.reply "El #{num}"
+        else
+          cmd = "#{@cmd_es}Bingo terminado!'"
+        end
+        %x[ #{cmd} ]
       end
-      %x[ #{cmd} ]
     end
   end
 end
