@@ -80,7 +80,7 @@ module Plugins
 
     def bingo_chosen(m)
       if m.user.nick == @bingo_master
-        m.reply "Estos son los que ya han salido, tontaco!\n#{@chosen.sorted().to_s}"
+        m.reply "Estos son los que ya han salido, tontaco!\n#{@chosen.sort().to_s}"
       end
     end
 
