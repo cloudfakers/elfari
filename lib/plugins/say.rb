@@ -18,6 +18,10 @@ module Plugins
         @cmd_en = "say -v Vicki '"
         @cmd_es = "say -v Monica '"
       end
+      # Initialize bingo
+      @numbers = []
+      @chosen = []
+      @bingo_master = config[:nick]
     end
 
     match "cuenta un chiste", method: :joke, :use_prefix => false
@@ -86,7 +90,7 @@ module Plugins
 
     def bingo_next(m)
       if m.user.nick == @bingo_master
-        if @numbers.size() > 0
+        unless @numbers.empty?
           num = @numbers.delete_at(Random.rand(@numbers.size()))
           @chosen << num
 

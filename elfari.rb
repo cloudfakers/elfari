@@ -75,6 +75,7 @@ bot = Cinch::Bot.new do
 
     c.plugins.options= {
 #      Plugins::Player => { :mplayer_bin => config[:mplayer], :database => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:database]}" },
+      Plugins::Say => { :nick => config[:nick] },
       Plugins::VLC => { :bin => config[:vlc][:bin],
                         :port => config[:vlc][:port],
                         :args => config[:vlc][:args],
