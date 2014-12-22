@@ -22,6 +22,10 @@ module Plugins
     match /dimelo\s*(.*)/, method: :say, :use_prefix => false
     match /say\s*(.*)/, method: :english, :use_prefix => false
     match /aleman\s*(.*)/, method: :german, :use_prefix => false
+    match /^abibingo$/, method: :bingo_start, :use_prefix => false
+    match /^linea$/, method: :bingo_line, :use_prefix => false
+    match /^bingo$/, method: :bingo_bingo, :use_prefix => false
+    match /^cantamelo$/, method: :bingo_next, :use_prefix => false
 
     def say(m, text)
       cmd = "#{@cmd_es}#{text}'"
@@ -51,6 +55,36 @@ module Plugins
       return if joke.empty? and i == 0
       cmd = "#{@cmd_es}#{joke}'"
       %x[ #{cmd} ] 
+    end
+
+    def bingo_start(m)
+      @numbers =* (1..90)
+      cmd = "#{@cmd_es}Vamos chavalotes, que empieda el Abi Bingo!'"
+      %x[ #{cmd} ]
+    end
+
+    def bingo_line(m)
+      cmd = "#{@cmd_es}#{m.user.nick} canta linea...'"
+      %x[ #{cmd} ]
+    end
+
+    def bingo_bingo(m)
+      cmd = "#{@cmd_es}#{m.user.nick} canta bingo... Bukkake!'"
+      %x[ #{cmd} ]
+    end
+
+    def bingo_next(m)
+      if @numbers.size() > 0
+        num = @numbers.delete_at(Random.rand(@numbers.size()))
+        txt = "El #{num}!"
+        if num > 9
+          txt += " #{num/10}, #{num % 10}!"
+        end
+        cmd = "#{@cmd_es}#{txt}'"
+      else
+        cmd = "#{@cmd_es}Bingo terminado!'"
+      end
+      %x[ #{cmd} ]
     end
   end
 end
