@@ -93,31 +93,34 @@ module Plugins
         unless @numbers.empty?
           num = @numbers.delete_at(Random.rand(@numbers.size()))
           @chosen << num
+          rhyme = _getRhyme(num)
 
           txt = "El #{num}!"
-          if num > 9
-            txt += " #{num/10}, #{num % 10}!"
-          end
+          txt += " #{num / 10}, #{num % 10}." if num > 9
 
-          begin
-            http = Net::HTTP.new('rimamelo.herokuapp.com', 80)
-            request = Net::HTTP::Get.new("/web/api?model.rhyme=#{num}")
-            response = http.request(request)
-            if response.code == '200'
-              rhyme = response.body()
-              txt += " #{rhyme.force_encoding('iso-8859-1')}"
-            end
-          rescue
-            # Ignore the rhyme if it cannot be retrieved
-          end
-
-          cmd = "#{@cmd_es}#{txt}'"
-          m.reply "El #{num}"
+          cmd = "#{@cmd_es}#{txt} #{rhyme}'"
+          m.reply "El #{num}. #{rhyme}"
         else
           cmd = "#{@cmd_es}Bingo terminado!'"
         end
         %x[ #{cmd} ]
       end
+    end
+
+    def _getRhyme(number)
+      rhyme = ''
+      begin
+        http = Net::HTTP.new('rimamelo.herokuapp.com', 80)
+        request = Net::HTTP::Get.new("/web/api?model.rhyme=#{number}")
+        response = http.request(request)
+        if response.code == '200'
+          rhyme = response.body()
+          rhyme = "#{rhyme.force_encoding('iso-8859-1')}"
+        end
+      rescue
+        # Ignore the rhyme if it cannot be retrieved
+      end
+      rhyme
     end
   end
 end
