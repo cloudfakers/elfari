@@ -55,6 +55,7 @@ greetings = {
     "apuig" => "http://www.youtube.com/watch?v=ZeKop5CqIIU",
     "maryjane" => "http://www.youtube.com/watch?v=jFO9siTkJ_Y",
     "mjsmyth" => "http://www.youtube.com/watch?v=jFO9siTkJ_Y",
+    "merixoni" => "http://www.youtube.com/watch?v=jFO9siTkJ_Y",
     "xthevenot" => "http://www.youtube.com/watch?v=ftbYFZkNTtw",
     "PelicanMan" => "http://www.youtube.com/watch?v=ftbYFZkNTtw",
     "mmorata" => "http://www.youtube.com/watch?v=UI16A1Datfo",
