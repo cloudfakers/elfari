@@ -268,16 +268,12 @@ module Plugins
     end
 
     def get_volume(m)
+      the_vol = @vol
       if @streaming
         vol = @vlc.volume
-        if vol.nil? or vol == ""
-          m.reply @vol
-        else
-          m.reply "el volume: #{vol.to_i}"
-        end
-      else
-        m.reply @vol
+        the_vol = vol.to_i if !vol.nil? and vol != ""
       end
+      m.reply "la cosa suena a #{the_vol}"
     end
 
     def deprecated(m)
