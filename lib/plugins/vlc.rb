@@ -239,7 +239,7 @@ module Plugins
       duration = "UNKNOWN LENGTH"
       if /http:\/\//.match(query)
         uri = query
-        title = YoutubeDL::Downloader.video_title(url)
+        title = YoutubeDL::Downloader.video_title(uri)
       else
         uri, title, duration = @youtube.get_video(query)
       end
