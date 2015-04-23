@@ -238,7 +238,7 @@ module Plugins
 
     def execute_aluego(m, query)
       duration = "UNKNOWN LENGTH"
-      if /http:\/\//.match(query)
+      if /^http/.match(query)
         uri = query
         title = YoutubeDL::Downloader.video_title(uri)
         video_id = CGI.parse(URI.parse(uri).query)['v'][0]
