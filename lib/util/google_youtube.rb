@@ -25,20 +25,10 @@ class GoogleYoutube
 
             if res.data.items.any?
                 video = res.data.items[0]
-
-                info = @client.execute!(
-                    :api_method => @youtube.videos.list,
-                    :parameters => {
-                        :part => 'contentDetails',
-                        :id => video.id.videoId
-                    }
-                )
-
                 uri = "https://www.youtube.com/watch?v=#{video.id.videoId}"
                 title = video.snippet.title
-                duration = info.data.items[0].contentDetails.duration
-
-                return uri, title, parse_duration(duration)
+                content_details = get_content_details(video.id.videoId)
+                return uri, title, parse_duration(content_details.duration)
             else
                 return nil, nil, nil
             end
@@ -46,6 +36,17 @@ class GoogleYoutube
             puts ex.result.body
             return nil, nil, nil
         end
+    end
+
+    def get_content_details(video_id)
+        details = @client.execute!(
+            :api_method => @youtube.videos.list,
+            :parameters => {
+                :part => 'contentDetails',
+                :id => video_id
+            }
+        )
+        return details.data.items[0].contentDetails
     end
 
     def parse_duration(duration)

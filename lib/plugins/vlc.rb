@@ -1,8 +1,9 @@
 require 'cinch'
 require 'yaml'
-
 require 'vlcrc'
 require 'ruby-youtube-dl'
+require 'uri'
+require 'cgi'
 
 require File.dirname(__FILE__) + '/../util/elfari_util'
 require File.dirname(__FILE__) + '/../util/google_youtube'
@@ -240,6 +241,9 @@ module Plugins
       if /http:\/\//.match(query)
         uri = query
         title = YoutubeDL::Downloader.video_title(uri)
+        video_id = CGI.parse(URI.parse(uri).query)['v'][0]
+        details = @youtube.get_content_details(video_id)
+        duration = @youtube.parse_duration(details.duration)
       else
         uri, title, duration = @youtube.get_video(query)
       end
