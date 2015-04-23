@@ -72,7 +72,7 @@ module Plugins
       @vlc.add_stream   YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
       @vlc.playing = true
 
-      @vol = 250
+      @vol = 200
     end
 
     listen_to :join
@@ -114,7 +114,8 @@ module Plugins
         `amixer -D pulse sset Master #{n}%`
         @vol = n
       else
-        @vlc.volume=query.to_i
+        @vlc.volume = query.to_i
+        @vol = query.to_i
       end
     end
 
@@ -270,7 +271,7 @@ module Plugins
       if @streaming
         vol = @vlc.volume
         if vol.nil? or vol == ""
-          m.reply "Ahora no esta sonando nada!"
+          m.reply @vol
         else
           m.reply "el volume: #{vol.to_i}"
         end
