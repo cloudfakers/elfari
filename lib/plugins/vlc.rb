@@ -3,9 +3,9 @@ require 'yaml'
 
 require 'vlcrc'
 require 'ruby-youtube-dl'
-require 'youtube_it'
 
 require File.dirname(__FILE__) + '/../util/elfari_util'
+require File.dirname(__FILE__) + '/../util/google_youtube'
 
 
 module Plugins
@@ -38,7 +38,7 @@ module Plugins
 
     def initialize(*args)
       super
-      @youtube = YouTubeIt::Client.new if @youtube.nil?
+      @youtube = GoogleYoutube.new(config[:youtube_key]) if @youtube.nil?
 
       @db_song = config[:database]
       @db_apm = config[:apm]
@@ -236,12 +236,12 @@ module Plugins
     end
 
     def execute_aluego(m, query)
-      length = "UNKNOWN LENGTH"
+      duration = "UNKNOWN LENGTH"
       if /http:\/\//.match(query)
         uri = query
+        title = YoutubeDL::Downloader.video_title(url)
       else
-        video = @youtube.videos_by(:query => query, :max_results => 1).videos.at(0)
-        uri = video.player_url unless video.nil?
+        uri, title, duration = @youtube.get_video(query)
       end
       if uri.nil?
         m.reply "no veo el #{query}"
@@ -254,8 +254,7 @@ module Plugins
           @vlc.stream= flv
         end
         @vlc.playing=true
-        length = Time.at(video.duration).utc.strftime("%T") unless video.nil?
-        m.reply "encolado " + YoutubeDL::Downloader.video_title(uri) + " #{uri} (#{length})"
+        m.reply "encolado " + title + " #{uri} (#{duration})"
       end
     end
 

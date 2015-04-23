@@ -19,6 +19,9 @@
 
 :internet_song: 'config/tracks/internet_down.ogg'
 
+:youtube:
+  :key: 'changeme'
+
 :vlc:
   :bin: '/usr/bin/vlc'
   :host: '0.0.0.0'

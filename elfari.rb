@@ -82,6 +82,7 @@ bot = Cinch::Bot.new do
                         :port => config[:vlc][:port],
                         :args => config[:vlc][:args],
                         :host => config[:vlc][:host],
+                        :youtube_key => config[:youtube][:key],
                         :database => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:database]}",
                         :apm => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:apm]}",
                         :apm_folder => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:apm_folder]}",
