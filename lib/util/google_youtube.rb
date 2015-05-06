@@ -50,8 +50,14 @@ class GoogleYoutube
     end
 
     def parse_duration(duration)
-        minutes = /(\d+)M/.match(duration)[1]
-        seconds = /(\d+)S/.match(duration)[1]
-        return "00:#{minutes.rjust(2, '0')}:#{seconds.rjust(2, '0')}"
+        hours = /(\d+)H/.match(duration)
+        minutes = /(\d+)M/.match(duration)
+        seconds = /(\d+)S/.match(duration)
+
+        str_hours = if hours then hours[1] else "00" end
+        str_minutes = if minutes then minutes[1] else "00" end
+        str_seconds = if seconds then seconds[1] else "00" end
+
+        return "#{str_hours.rjust(2, '0')}:#{str_minutes.rjust(2, '0')}:#{str_seconds.rjust(2, '0')}"
     end
 end
