@@ -61,6 +61,7 @@ greetings = {
     "mmorata" => "http://www.youtube.com/watch?v=UI16A1Datfo",
     "MarcMorata" => "http://www.youtube.com/watch?v=UI16A1Datfo",
     "dnieto" => "http://www.youtube.com/watch?v=XHOWiJus2m8",
+    "xfernandez" => "http://www.youtube.com/watch?v=FlJJS6DRNS4",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
