@@ -9,7 +9,7 @@ Very little indeed. Mostly annoy people by playing music from youtube and shouti
 
 ## Installation
 
-(VLC)[http://www.videolan.org] is the preferred player.
+[VLC](http://www.videolan.org) is the preferred player.
 
 Look for installers in releases page. Then use those if you prefer an easy way to install this software. Bear in mind this disclaimer:
 
