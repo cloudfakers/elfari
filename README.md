@@ -38,7 +38,7 @@ Tune `config/config.yml` file and run either the `run.sh` or `elfari.rb`.
 Recommended line to launch `VLC`:
 
 ```
-vlc -vvv --ignore-config -I lua --lua-intf cli --no-video --lua-config "rc={host='0.0.0.0:4000',flatplaylist=0}"
+VDPAU_DRIVER=va_gl vlc -vvv --ignore-config -I lua --lua-intf cli --lua-config "rc={host='0.0.0.0:4000',flatplaylist=0}" --fullscreen --no-video-title --http-reconnect
 ```
 
 ## Note on players
