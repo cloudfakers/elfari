@@ -1,3 +1,4 @@
 *.swp
 *.DS_Store
 config/db/apm_songs/
+Gemfile.lock
