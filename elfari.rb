@@ -67,6 +67,7 @@ greetings = {
     "dd" => "http://www.youtube.com/watch?v=55OcHGlsV7Q",
     "chiconuevo" => "http://www.youtube.com/watch?v=jO4pjulBuL8",
     "antxon" => "http://www.youtube.com/watch?v=jO4pjulBuL8",
+    "aprete" => "http://www.youtube.com/watch?v=JUXFXXnw8TM",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
