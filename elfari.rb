@@ -68,6 +68,9 @@ greetings = {
     "chiconuevo" => "http://www.youtube.com/watch?v=jO4pjulBuL8",
     "antxon" => "http://www.youtube.com/watch?v=jO4pjulBuL8",
     "aprete" => "http://www.youtube.com/watch?v=JUXFXXnw8TM",
+    "ggonzalez" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
+    "genardo" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
+    "nardo" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
