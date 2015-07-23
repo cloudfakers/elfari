@@ -71,6 +71,7 @@ greetings = {
     "ggonzalez" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
     "genardo" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
     "nardo" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
+    "cmartinez" => "http://www.youtube.com/watch?v=Pigwo0fxvSs",
     "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
 }
 
