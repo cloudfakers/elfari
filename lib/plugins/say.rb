@@ -9,9 +9,9 @@ module Plugins
     def initialize(*args)
       super
       if RUBY_PLATFORM =~ /linux/
-        @cmd_es = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=es&q="
-        @cmd_en = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="
-        @cmd_de = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=de&q="
+        @cmd_es = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=es&client=t&q="
+        @cmd_en = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=t&q="
+        @cmd_de = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=de&client=t&q="
       elsif RUBY_PLATFORM =~ /^win/
         raise Cinch::Exceptions::UnsupportedFeature.new "This plugin is only compatible with linux or mac"
       else
