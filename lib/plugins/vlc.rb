@@ -68,8 +68,8 @@ module Plugins
       end
 
       @vlc.clear_playlist
-      @vlc.add_stream   YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=7nQ2oiVqKHw')
-      @vlc.add_stream   YoutubeDL::Downloader.url_flv('http://www.youtube.com/watch?v=1CiqkIyw-mA')
+      @vlc.add_stream 'http://www.youtube.com/watch?v=7nQ2oiVqKHw'
+      @vlc.add_stream 'http://www.youtube.com/watch?v=1CiqkIyw-mA'
       @vlc.playing = true
 
       @vol = 200
@@ -90,9 +90,9 @@ module Plugins
           greeting = @greetings["default"]
       end
       if @vlc.playing
-        @vlc.add_stream YoutubeDL::Downloader.url_flv(greeting)
+        @vlc.add_stream greeting
       else
-        @vlc.stream= YoutubeDL::Downloader.url_flv(greeting)
+        @vlc.stream = greeting
       end
     end
 
@@ -194,12 +194,11 @@ module Plugins
       db.each do |line|
         if line =~ /#{query}/i
           play = line.split(/ /)[0]
-          flv = YoutubeDL::Downloader.url_flv(play)
           if @vlc.playing and !force
-            @vlc.add_stream flv
+            @vlc.add_stream play
           else
             @vlc.clear_playlist
-            @vlc.stream=flv
+            @vlc.stream = play
           end
           title =YoutubeDL::Downloader.video_title(play)
           m.reply "Tomalo, chato: #{title}"
@@ -285,12 +284,11 @@ module Plugins
       return unless db
       song = db.at(Random.rand(db.length))
       play = song.split(/ /)[0]
-      flv = YoutubeDL::Downloader.url_flv(play)
       if @vlc.playing
-        @vlc.add_stream flv
+        @vlc.add_stream play
       else
         @vlc.clear_playlist
-        @vlc.stream=flv
+        @vlc.stream=play
       end
       title =YoutubeDL::Downloader.video_title(play)
       m.reply "Tomalo, chato: #{title}"
