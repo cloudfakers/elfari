@@ -251,15 +251,15 @@ module Plugins
       if uri.nil?
         m.reply "no veo el #{query}"
       else
-        flv = YoutubeDL::Downloader.url_flv(uri)
+        play_url = uri.strip  
         if @vlc.playing
-          @vlc.add_stream flv
+          @vlc.add_stream play_url
         else
           @vlc.clear_playlist
-          @vlc.stream= flv
+          @vlc.stream = play_url
         end
         @vlc.playing=true
-        m.reply "encolado " + title + " #{uri} (#{duration})"
+        m.reply "encolado " + title + " #{play_url} (#{duration})"
       end
     end
 
