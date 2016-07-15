@@ -51,7 +51,7 @@ greetings = {
     "eruiz" => "http://www.youtube.com/watch?v=jvZVMMTFut0",
     "spena" => "http://www.youtube.com/watch?v=nPrYcD79Qm4",
     "lmonte" => "http://www.youtube.com/watch?v=0t7JowCZHQE",
-    "chirauki" => "http://www.youtube.com/watch?v=0wXYx-cUGWg",
+    "chirauki" => ["http://www.youtube.com/watch?v=0wXYx-cUGWg","http://www.youtube.com/watch?v=UI16A1Datfo"],
     "apuig" => "http://www.youtube.com/watch?v=ZeKop5CqIIU",
     "maryjane" => "http://www.youtube.com/watch?v=jFO9siTkJ_Y",
     "mjsmyth" => "http://www.youtube.com/watch?v=jFO9siTkJ_Y",

@@ -85,7 +85,12 @@ module Plugins
     end
 
     def _greet(who)
-      greeting = @greetings[who]
+      greets = @greetings[who]
+      if greets.is_a? Array
+        greeting = greets.sample
+      else
+        greeting = greets
+      end
       if greeting.nil?
           greeting = @greetings["default"]
       end
