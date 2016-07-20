@@ -255,7 +255,8 @@ module Plugins
       if uri.nil?
         m.reply "no veo el #{query}"
       else
-        play_url = uri.strip  
+        play_url = `youtube-dl -g #{uri}`.strip
+        #play_url = uri.strip
         if @vlc.playing
           @vlc.add_stream play_url
         else
@@ -263,7 +264,7 @@ module Plugins
           @vlc.stream = play_url
         end
         @vlc.playing=true
-        m.reply "encolado " + title + " #{play_url} (#{duration})"
+        m.reply "encolado " + title + " #{uri} (#{duration})"
       end
     end
 
