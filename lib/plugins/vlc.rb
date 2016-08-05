@@ -269,7 +269,7 @@ module Plugins
       end
     end
 
-    def add_playlist(query)
+    def add_playlist(m, query)
       if /^http/.match(query)
         query = CGI.parse(URI.parse(query).query)['list'][0]
       end
