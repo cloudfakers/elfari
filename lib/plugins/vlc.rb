@@ -36,6 +36,7 @@ module Plugins
     match /^ponme argo\s*(.*)/, method: :play_known_random, :use_prefix => false
     match /que es esta mierda(.*)/, method: :current, :use_prefix => false
     match /afuego\s+(.*)/, method: :fire, :use_prefix => false
+    match /playlist\s+(.*)/, method: :add_playlist, :use_prefix => false
 
     def initialize(*args)
       super
@@ -265,6 +266,29 @@ module Plugins
         end
         @vlc.playing=true
         m.reply "encolado " + title + " #{uri} (#{duration})"
+      end
+    end
+
+    def add_playlist(query)
+      if /^http/.match(query)
+        query = CGI.parse(URI.parse(query).query)['list'][0]
+      end
+      uri, title, items = @youtube.get_playlist(query)
+      if uri.nil?
+        m.reply "no veo el #{query}"
+      else
+        m.reply "Encolando #{items} videos de #{title}"
+        videos = `youtube-dl -q -g --skip-download '#{uri}'`
+        videos.split.each do |video_url|
+          if @vlc.playing
+            @vlc.add_stream video_url
+          else
+            @vlc.clear_playlist
+            @vlc.stream = video_url
+          end
+          @vlc.playing = true
+        end
+        m.reply "Done!"
       end
     end
 

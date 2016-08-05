@@ -38,12 +38,52 @@ class GoogleYoutube
         end
     end
 
+    def get_playlist(query)
+        begin
+            res = @client.execute!(
+                :api_method => @youtube.search.list,
+                :parameters => {
+                    :part => 'snippet',
+                    :type => 'playlist',
+                    :maxResults => 1,
+                    :q => query
+                }
+            )
+
+            if res.data.items.any?
+                playlist = res.data.items[0]
+                uri = "https://www.youtube.com/playlist?list=#{playlist.id.playlistId}"
+                title = playlist.snippet.title
+                details = get_playlist_details(playlist.id.playlistId)
+                puts details
+                puts "foo #{details.title}"
+                return uri, title, details.itemCount
+            else
+                return nil, nil, nil
+            end
+        rescue Google::APIClient::TransmissionError => ex
+            puts ex.result.body
+            return nil, nil, nil
+        end
+    end
+
     def get_content_details(video_id)
         details = @client.execute!(
             :api_method => @youtube.videos.list,
             :parameters => {
                 :part => 'contentDetails',
                 :id => video_id
+            }
+        )
+        return details.data.items[0].contentDetails
+    end
+
+    def get_playlist_details(playlist_id)
+        details = @client.execute!(
+            :api_method => @youtube.playlists.list,
+            :parameters => {
+                :part => 'contentDetails',
+                :id => playlist_id
             }
         )
         return details.data.items[0].contentDetails
