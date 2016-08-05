@@ -55,8 +55,6 @@ class GoogleYoutube
                 uri = "https://www.youtube.com/playlist?list=#{playlist.id.playlistId}"
                 title = playlist.snippet.title
                 details = get_playlist_details(playlist.id.playlistId)
-                puts details
-                puts "foo #{details.title}"
                 return uri, title, details.itemCount
             else
                 return nil, nil, nil
