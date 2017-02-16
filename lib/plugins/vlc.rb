@@ -28,7 +28,7 @@ module Plugins
     match /aluego(.*)/, method: :execute_aluego, :use_prefix => false
     match /trame\s*(.*)/, method: :trame, :use_prefix => false
     match /ponmelo.*/, method: :deprecated, :use_prefix => false
-    match /melee time/, method: :melee, :use_prefix => false
+    match /^mele.*/, method: :melee, :use_prefix => false
     match /a cuanto/, method: :get_volume, :use_prefix => false
     match /^volumen\+\+$/, method: :increase_volume, :use_prefix => false
     match /^volume--$/, method: :decrease_volume, :use_prefix => false
@@ -293,7 +293,7 @@ module Plugins
     end
 
     def melee(m)
-      play_known(m, 'franzl')
+      fire(m, 'https://www.youtube.com/watch?v=bdsSCF6QpCI')
     end
 
     def get_volume(m)
