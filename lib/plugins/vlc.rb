@@ -200,11 +200,12 @@ module Plugins
       db.each do |line|
         if line =~ /#{query}/i
           play = line.split(/ /)[0]
+	  cached = cache_file(play)
           if @vlc.playing and !force
-            @vlc.add_stream play
+            @vlc.add_stream cached
           else
             @vlc.clear_playlist
-            @vlc.stream = play
+            @vlc.stream = cached
           end
           title =YoutubeDL::Downloader.video_title(play)
           m.reply "Tomalo, chato: #{title}"
@@ -256,17 +257,29 @@ module Plugins
       if uri.nil?
         m.reply "no veo el #{query}"
       else
-        play_url = `youtube-dl -g #{uri}`.strip
-        #play_url = uri.strip
+        #play_url = `youtube-dl -g #{uri}`.strip
+        cached_file = cache_file(uri)
+        
         if @vlc.playing
-          @vlc.add_stream play_url
+          @vlc.add_stream cached_file
         else
           @vlc.clear_playlist
-          @vlc.stream = play_url
+          @vlc.stream = cached_file
         end
         @vlc.playing=true
         m.reply "encolado " + title + " #{uri} (#{duration})"
       end
+    end
+
+    def cache_file(uri)
+      vid = URI.parse(uri).query.split('=')[1]
+      cached_file = "/var/cache/elfari/#{vid}"
+      unless File.exists?(cached_file)
+        `youtube-dl -o '#{cached_file}' #{uri}`.strip
+	# youtube.dl always appends the extension. Just remove it
+        `mv #{cached_file}.* #{cached_file}`
+      end
+      cached_file
     end
 
     def add_playlist(m, query)
@@ -293,7 +306,7 @@ module Plugins
     end
 
     def melee(m)
-      fire(m, 'https://www.youtube.com/watch?v=bdsSCF6QpCI')
+      execute_aluego(m, 'bdsSCF6QpCI')
     end
 
     def get_volume(m)
@@ -314,11 +327,12 @@ module Plugins
       return unless db
       song = db.at(Random.rand(db.length))
       play = song.split(/ /)[0]
+      cached = cache_file(play)
       if @vlc.playing
-        @vlc.add_stream play
+        @vlc.add_stream cached
       else
         @vlc.clear_playlist
-        @vlc.stream=play
+        @vlc.stream=cached
       end
       title =YoutubeDL::Downloader.video_title(play)
       m.reply "Tomalo, chato: #{title}"
