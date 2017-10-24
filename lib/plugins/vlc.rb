@@ -200,14 +200,14 @@ module Plugins
       db.each do |line|
         if line =~ /#{query}/i
           play = line.split(/ /)[0]
-	  cached = cache_file(play)
+	  #cached = cache_file(play)
           if @vlc.playing and !force
-            @vlc.add_stream cached
+            @vlc.add_stream play
           else
             @vlc.clear_playlist
-            @vlc.stream = cached
+            @vlc.stream = play
           end
-          title =YoutubeDL::Downloader.video_title(play)
+          title = YoutubeDL::Downloader.video_title(play)
           m.reply "Tomalo, chato: #{title}"
           found = true
           break
@@ -258,13 +258,13 @@ module Plugins
         m.reply "no veo el #{query}"
       else
         #play_url = `youtube-dl -g #{uri}`.strip
-        cached_file = cache_file(uri)
+        #cached_file = cache_file(uri)
         
         if @vlc.playing
-          @vlc.add_stream cached_file
+          @vlc.add_stream uri
         else
           @vlc.clear_playlist
-          @vlc.stream = cached_file
+          @vlc.stream = uri
         end
         @vlc.playing=true
         m.reply "encolado " + title + " #{uri} (#{duration})"
@@ -276,7 +276,7 @@ module Plugins
       cached_file = "/var/cache/elfari/#{vid}"
       unless File.exists?(cached_file)
         `youtube-dl -o '#{cached_file}' #{uri}`.strip
-	# youtube.dl always appends the extension. Just remove it
+	# youtube-dl always appends the extension. Just remove it
         `mv #{cached_file}.* #{cached_file}`
       end
       cached_file
@@ -327,12 +327,12 @@ module Plugins
       return unless db
       song = db.at(Random.rand(db.length))
       play = song.split(/ /)[0]
-      cached = cache_file(play)
+      #cached = cache_file(play)
       if @vlc.playing
         @vlc.add_stream cached
       else
         @vlc.clear_playlist
-        @vlc.stream=cached
+        @vlc.stream = play
       end
       title =YoutubeDL::Downloader.video_title(play)
       m.reply "Tomalo, chato: #{title}"
