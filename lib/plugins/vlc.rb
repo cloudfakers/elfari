@@ -26,7 +26,7 @@ module Plugins
     match /saluda\s*a?\s*(.*)/, method: :greet, :use_prefix => false
     match /^apm\s*(.*)/, method: :play_apm, :use_prefix => false
     match /aluego(.*)/, method: :aluego, :use_prefix => false
-    match /acache(.*)/, method: :cached_aluego, :use_prefix => false
+    match /meh(.*)/, method: :cached_aluego, :use_prefix => false
     match /trame\s*(.*)/, method: :trame, :use_prefix => false
     match /ponmelo.*/, method: :deprecated, :use_prefix => false
     match /^mele.*/, method: :melee, :use_prefix => false
