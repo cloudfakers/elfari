@@ -71,7 +71,6 @@ module Plugins
 
       @vlc.clear_playlist
       @vlc.add_stream 'http://www.youtube.com/watch?v=7nQ2oiVqKHw'
-      @vlc.add_stream 'http://www.youtube.com/watch?v=1CiqkIyw-mA'
       @vlc.playing = true
 
       @vol = 200
