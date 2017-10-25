@@ -25,11 +25,12 @@ module Plugins
     match /ponme\s*er\s*(.*)/, method: :play_known, :use_prefix => false
     match /saluda\s*a?\s*(.*)/, method: :greet, :use_prefix => false
     match /^apm\s*(.*)/, method: :play_apm, :use_prefix => false
-    match /aluego(.*)/, method: :execute_aluego, :use_prefix => false
+    match /aluego(.*)/, method: :aluego, :use_prefix => false
+    match /acache(.*)/, method: :cached_aluego, :use_prefix => false
     match /trame\s*(.*)/, method: :trame, :use_prefix => false
     match /ponmelo.*/, method: :deprecated, :use_prefix => false
     match /^mele.*/, method: :melee, :use_prefix => false
-    match /a cuanto/, method: :get_volume, :use_prefix => false
+    match /a\s*cuanto/, method: :get_volume, :use_prefix => false
     match /^volumen\+\+$/, method: :increase_volume, :use_prefix => false
     match /^volume--$/, method: :decrease_volume, :use_prefix => false
     match /^dale$/, method: :play, :use_prefix => false
@@ -200,7 +201,7 @@ module Plugins
       db.each do |line|
         if line =~ /#{query}/i
           play = line.split(/ /)[0]
-	  #cached = cache_file(play)
+          #cached = cache_file(play)
           if @vlc.playing and !force
             @vlc.add_stream play
           else
@@ -240,10 +241,18 @@ module Plugins
     def trame(m, query)
       @vlc.playing=false
       @vlc.clear_playlist
-      execute_aluego(m, query)
+      execute_aluego(m, query, false)
+    end
+    
+    def aluego(m, query)
+      execute_aluego(m, query, false)
     end
 
-    def execute_aluego(m, query)
+    def cached_aluego(m, query)
+      execute_aluego(m, query, true)
+    end
+
+    def execute_aluego(m, query, cached)
       duration = "UNKNOWN LENGTH"
       if /^http/.match(query)
         uri = query
@@ -258,13 +267,13 @@ module Plugins
         m.reply "no veo el #{query}"
       else
         #play_url = `youtube-dl -g #{uri}`.strip
-        #cached_file = cache_file(uri)
+        play_uri = cached ? cache_file(uri) : uri
         
         if @vlc.playing
-          @vlc.add_stream uri
+          @vlc.add_stream play_uri
         else
           @vlc.clear_playlist
-          @vlc.stream = uri
+          @vlc.stream = play_uri
         end
         @vlc.playing=true
         m.reply "encolado " + title + " #{uri} (#{duration})"
@@ -276,7 +285,7 @@ module Plugins
       cached_file = "/var/cache/elfari/#{vid}"
       unless File.exists?(cached_file)
         `youtube-dl -o '#{cached_file}' #{uri}`.strip
-	# youtube-dl always appends the extension. Just remove it
+        # youtube-dl always appends the extension. Just remove it
         `mv #{cached_file}.* #{cached_file}`
       end
       cached_file
@@ -306,7 +315,7 @@ module Plugins
     end
 
     def melee(m)
-      execute_aluego(m, 'bdsSCF6QpCI')
+      execute_aluego(m, 'bdsSCF6QpCI', false)
     end
 
     def get_volume(m)
@@ -329,7 +338,7 @@ module Plugins
       play = song.split(/ /)[0]
       #cached = cache_file(play)
       if @vlc.playing
-        @vlc.add_stream cached
+        @vlc.add_stream play
       else
         @vlc.clear_playlist
         @vlc.stream = play
