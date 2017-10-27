@@ -14,30 +14,30 @@ module Plugins
   class VLC
     include Cinch::Plugin
 
-    match /shh/, method: :pause, :use_prefix => false
-    match /volumen\s*(\d*)/, method: :volume, :use_prefix => false
-    match /quita esta mierda/, method: :next_song, :use_prefix => false
-    match /apunta\s+(.+)/, method: :add_song_db, :use_prefix => false
-    match /apuntaapm\s+(.+)/, method: :add_song_apm, :use_prefix => false
-    match /vino/, method: :wine, :use_prefix => false
-    match /que\stiene/, method: :list, :use_prefix => false
+    match /^shh/, method: :pause, :use_prefix => false
+    match /^volumen\s*(\d*)/, method: :volume, :use_prefix => false
+    match /^quita esta mierda/, method: :next_song, :use_prefix => false
+    match /^apunta\s+(.+)/, method: :add_song_db, :use_prefix => false
+    match /^apuntaapm\s+(.+)/, method: :add_song_apm, :use_prefix => false
+    match /^vino/, method: :wine, :use_prefix => false
+    match /^que\stiene/, method: :list, :use_prefix => false
     match /^list\s?apm/, method: :list_apm, :use_prefix => false
-    match /ponme\s*er\s*(.*)/, method: :play_known, :use_prefix => false
-    match /saluda\s*a?\s*(.*)/, method: :greet, :use_prefix => false
+    match /^ponme\s*er\s*(.*)/, method: :play_known, :use_prefix => false
+    match /^saluda\s*a?\s*(.*)/, method: :greet, :use_prefix => false
     match /^apm\s*(.*)/, method: :play_apm, :use_prefix => false
-    match /aluego(.*)/, method: :aluego, :use_prefix => false
-    match /meh(.*)/, method: :cached_aluego, :use_prefix => false
-    match /trame\s*(.*)/, method: :trame, :use_prefix => false
-    match /ponmelo.*/, method: :deprecated, :use_prefix => false
+    match /^aluego(.*)/, method: :aluego, :use_prefix => false
+    match /^meh(.*)/, method: :cached_aluego, :use_prefix => false
+    match /^trame\s*(.*)/, method: :trame, :use_prefix => false
+    match /^ponmelo.*/, method: :deprecated, :use_prefix => false
     match /^mele.*/, method: :melee, :use_prefix => false
-    match /a\s*cuanto/, method: :get_volume, :use_prefix => false
+    match /^a\s*cuanto/, method: :get_volume, :use_prefix => false
     match /^volumen\+\+$/, method: :increase_volume, :use_prefix => false
     match /^volume--$/, method: :decrease_volume, :use_prefix => false
     match /^dale$/, method: :play, :use_prefix => false
     match /^ponme argo\s*(.*)/, method: :play_known_random, :use_prefix => false
-    match /que es esta mierda(.*)/, method: :current, :use_prefix => false
-    match /afuego\s+(.*)/, method: :fire, :use_prefix => false
-    match /playlist\s+(.*)/, method: :add_playlist, :use_prefix => false
+    match /^que es esta mierda(.*)/, method: :current, :use_prefix => false
+    match /^afuego\s+(.*)/, method: :fire, :use_prefix => false
+    match /^playlist\s+(.*)/, method: :add_playlist, :use_prefix => false
 
     def initialize(*args)
       super
