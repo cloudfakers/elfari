@@ -26,7 +26,8 @@ module Plugins
     match /^saluda\s*a?\s*(.*)/, method: :greet, :use_prefix => false
     match /^apm\s*(.*)/, method: :play_apm, :use_prefix => false
     match /^aluego(.*)/, method: :aluego, :use_prefix => false
-    match /^meh(.*)/, method: :cached_aluego, :use_prefix => false
+    match /^meh (.*)/, method: :cached_aluego, :use_prefix => false
+    match /^meh\?/, method: :meh_status, :use_prefix => false
     match /^trame\s*(.*)/, method: :trame, :use_prefix => false
     match /^ponmelo.*/, method: :deprecated, :use_prefix => false
     match /^mele.*/, method: :melee, :use_prefix => false
@@ -47,6 +48,8 @@ module Plugins
       @db_apm = config[:apm]
       @apm_folder = config[:apm_folder]
       @greetings = config[:greetings]
+
+      @mehs = Hash.new
 
       @streaming = config[:streaming] || false
       config[:host] ||= 'localhost'
@@ -200,7 +203,7 @@ module Plugins
       db.each do |line|
         if line =~ /#{query}/i
           play = line.split(/ /)[0]
-          #cached = cache_file(play)
+          #cached = cache_file(m, play)
           if @vlc.playing and !force
             @vlc.add_stream play
           else
@@ -266,7 +269,7 @@ module Plugins
         m.reply "no veo el #{query}"
       else
         #play_url = `youtube-dl -g #{uri}`.strip
-        play_uri = cached ? cache_file(uri) : uri
+        play_uri = cached ? cache_file(m, uri) : uri
         
         if @vlc.playing
           @vlc.add_stream play_uri
@@ -279,15 +282,29 @@ module Plugins
       end
     end
 
-    def cache_file(uri)
+    def cache_file(m, uri)
       vid = URI.parse(uri).query.split('=')[1]
       cached_file = "/var/cache/elfari/#{vid}"
       unless File.exists?(cached_file)
-        `youtube-dl -o '#{cached_file}' #{uri}`.strip
+        m.reply "Descargando #{uri} ..."
+        download = "youtube-dl --newline -f best -o '#{cached_file}' #{uri}"
+        IO.popen(download) do |io|
+          while (line = io.gets) do
+            @mehs[vid] = line
+          end
+        end
         # youtube-dl always appends the extension. Just remove it
         `mv #{cached_file}.* #{cached_file}`
+        @mehs.delete(vid)
       end
       cached_file
+    end
+
+    def meh_status(m)
+      m.reply "Aqui tienes como va la cosa:"
+      @mehs.each do |id,status|
+        m.reply "#{id} -> #{status}"
+      end
     end
 
     def add_playlist(m, query)
@@ -335,7 +352,7 @@ module Plugins
       return unless db
       song = db.at(Random.rand(db.length))
       play = song.split(/ /)[0]
-      #cached = cache_file(play)
+      #cached = cache_file(m, play)
       if @vlc.playing
         @vlc.add_stream play
       else
