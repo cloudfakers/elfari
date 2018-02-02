@@ -301,9 +301,13 @@ module Plugins
     end
 
     def meh_status(m)
-      m.reply "Aqui tienes como va la cosa:"
-      @mehs.each do |id,status|
-        m.reply "#{id} -> #{status}"
+      if @mehs.empty?
+        m.reply "No estoy descargando nada, payo!"
+      else
+        m.reply "Aqui tienes como va la cosa:"
+        @mehs.each do |id,status|
+          m.reply "#{id} -> #{status}"
+        end
       end
     end
 
