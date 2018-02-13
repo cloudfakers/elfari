@@ -4,6 +4,7 @@ require 'vlcrc'
 require 'ruby-youtube-dl'
 require 'uri'
 require 'cgi'
+require 'net/http'
 
 require File.dirname(__FILE__) + '/../util/elfari_util'
 require File.dirname(__FILE__) + '/../util/google_youtube'
@@ -40,6 +41,10 @@ module Plugins
     match /^afuego\s+(.*)/, method: :fire, :use_prefix => false
     match /^playlist\s+(.*)/, method: :add_playlist, :use_prefix => false
 
+    match /^puerta!$/, method: :puerta, :use_prefix => false
+    match /^palante!$/, method: :palante, :use_prefix => false
+    match /^zuul\s*(.*)/, method: :zuul_say, :use_prefix => false
+
     def initialize(*args)
       super
       @youtube = GoogleYoutube.new(config[:youtube_key]) if @youtube.nil?
@@ -48,6 +53,8 @@ module Plugins
       @db_apm = config[:apm]
       @apm_folder = config[:apm_folder]
       @greetings = config[:greetings]
+      @zuul = config[:zuul][:api]
+      @camera = config[:zuul][:camera]
 
       @mehs = Hash.new
 
@@ -392,6 +399,26 @@ module Plugins
       else
         m.reply "La uri debe empezar con http://. #{q}"
       end
+    end
+
+    def puerta(m)
+      Net::HTTP.get(URI.parse("#{@zuul}/puerta"))
+      m.reply "Abriendo la puerta..."
+      if @vlc.playing
+        @vlc.add_stream @camera
+      else
+        @vlc.clear_playlist
+        @vlc.stream=@camera
+      end
+      @vlc.playing=true
+    end
+
+    def palante()
+      Net::HTTP.get(URI.parse("#{@zuul}/palante"))
+    end
+    
+    def zuul_say(m, query)
+      Net::HTTP.post_form(URI.parse("#{@zuul}/dimelo"), {'text' => query.strip})
     end
   end
 end

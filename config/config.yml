@@ -30,6 +30,10 @@
   :streaming: false
   :streaming_port: 8888
 
+:zuul: 
+  :api: 'http://zuul.bcn.abiquo.com:7777'
+  :camera: 'http://zuul.bcn.abiquo.com:8080/?action=stream'
+
 :mpd_url: '127.0.0.1'
 :mpd_port: 6600
 

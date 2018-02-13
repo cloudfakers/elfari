@@ -100,7 +100,8 @@ bot = Cinch::Bot.new do
                         :internet_song => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:internet_song]}",
                         :streaming_port => config[:vlc][:streaming_port],
                         :streaming => config[:vlc][:streaming],
-                        :greetings => greetings},
+                        :greetings => greetings,
+                        :zuul => config[:zuul]},
 	#Plugins::Mpd => {:database => "#{File.expand_path(File.dirname(__FILE__))}/#{config[:database]}"},
         #Plugins::Tuiter => {:lang => config[:twitter][:lang]}
     }
