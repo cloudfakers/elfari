@@ -402,7 +402,6 @@ module Plugins
     end
 
     def puerta(m)
-      Net::HTTP.get(URI.parse("#{@zuul}/puerta"))
       m.reply "Abriendo la puerta..."
       if @vlc.playing
         @vlc.add_stream @camera
@@ -411,6 +410,7 @@ module Plugins
         @vlc.stream=@camera
       end
       @vlc.playing=true
+      Net::HTTP.get(URI.parse("#{@zuul}/puerta"))
     end
 
     def palante()
