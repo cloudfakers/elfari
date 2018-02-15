@@ -413,7 +413,7 @@ module Plugins
       Net::HTTP.get(URI.parse("#{@zuul}/puerta"))
     end
 
-    def palante()
+    def palante(m)
       Net::HTTP.get(URI.parse("#{@zuul}/palante"))
     end
     
