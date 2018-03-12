@@ -8,10 +8,11 @@ module Plugins
 
     def initialize(*args)
       super
+      voicersskey = config[:voicerss_key]
       if RUBY_PLATFORM =~ /linux/
-        @cmd_es = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=es&client=t&q="
-        @cmd_en = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=t&q="
-        @cmd_de = "mpg123 -q 'http://translate.google.com/translate_tts?ie=UTF-8&tl=de&client=t&q="
+        @cmd_es = "mpg123 -q 'http://api.voicerss.org/?key=#{voicersskey}&hl=es-es&src="
+        @cmd_en = "mpg123 -q 'http://api.voicerss.org/?key=#{voicersskey}&hl=en-us&src="
+        @cmd_de = "mpg123 -q 'http://api.voicerss.org/?key=#{voicersskey}&hl=de-de&src="
       elsif RUBY_PLATFORM =~ /^win/
         raise Cinch::Exceptions::UnsupportedFeature.new "This plugin is only compatible with linux or mac"
       else
