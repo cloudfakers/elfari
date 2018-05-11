@@ -38,7 +38,19 @@ Tune `config/config.yml` file and run either the `run.sh` or `elfari.rb`.
 Recommended line to launch `VLC`:
 
 ```
-VDPAU_DRIVER=va_gl vlc -vvv --ignore-config -I lua --lua-intf cli --lua-config "rc={host='0.0.0.0:4000',flatplaylist=0}" --fullscreen --no-video-title --http-reconnect
+VDPAU_DRIVER=va_gl vlc -vvv \
+    --ignore-config \
+    --http-reconnect \
+    --fullscreen \
+    --no-video-title \
+    -I lua --lua-intf cli --lua-config "rc={host='0.0.0.0:4000',flatplaylist=0}" \
+    --compressor-rms-peak 0 \
+    --compressor-attack 25 \
+    --compressor-release 100 \
+    --compressor-threshold -20 \
+    --compressor-ratio 21.60 \
+    --compressor-knee 2.50 \
+    --compressor-makeup-gain 12
 ```
 
 ## Note on players
