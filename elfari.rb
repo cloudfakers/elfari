@@ -72,7 +72,7 @@ greetings = {
     "genardo" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
     "nardo" => "http://www.youtube.com/watch?v=6_4eTvtQ3h4",
     "cmartinez" => "http://www.youtube.com/watch?v=fRxsLGFQ4D4",
-    "default" => "http://www.youtube.com/watch?v=1CiqkIyw-mA"
+    "default" => "http://www.youtube.com/watch?v=Y3nptBetBMo"
 }
 
 bot = Cinch::Bot.new do
