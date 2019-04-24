@@ -1,0 +1,9 @@
+version: '3'
+services:
+    fari:
+        build: .
+        image: cloudfakers/elfari
+        volumes:
+            - ./config:/opt/elfari/config:ro
+        restart: always
+        network_mode: host

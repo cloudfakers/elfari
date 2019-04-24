@@ -95,6 +95,27 @@ sudo youtube-dl -U
 
 If this amazing piece of software feels like hanged it is obviously your fault. You forgot, most likely, to kindly indicate the path to the `VLC` binary (in the `config/config.yml` file).
 
+
+## Docker
+
+### Build
+
+```
+docker build --no-cache -t cloudfakers/elfari .
+```
+
+### Run
+```
+docker run --rm -v /tmp/elfari/config:/opt/elfari/config cloudfakers/elfari
+```
+or
+```
+docker-compose up -d
+```
+
+
+
+
 ## License
 
 The original project (which I owe a PR) was created by [rubiojr](https://github.com/rubiojr).
